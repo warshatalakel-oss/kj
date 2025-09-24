@@ -10,7 +10,14 @@ interface MyHomeworkProps {
     onViewProgress: () => void;
 }
 
-const HomeworkCard = ({ homework, submission, onViewHomework }: { homework: Homework; submission?: HomeworkSubmission; onViewHomework: (h: Homework) => void }) => {
+// FIX: Changed component to React.FC with a defined props interface to correctly handle the 'key' prop in lists.
+interface HomeworkCardProps {
+    homework: Homework;
+    submission?: HomeworkSubmission;
+    onViewHomework: (h: Homework) => void;
+}
+
+const HomeworkCard: React.FC<HomeworkCardProps> = ({ homework, submission, onViewHomework }) => {
     const deadline = new Date(homework.deadline);
     const now = new Date();
     const diffTime = deadline.getTime() - now.getTime();

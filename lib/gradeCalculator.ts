@@ -1,4 +1,5 @@
-import type { Student, Subject, SubjectGrade, CalculatedGrade, StudentResult, SchoolSettings, ClassData } from '../types';
+
+import type { Student, Subject, SubjectGrade, CalculatedGrade, StudentResult, SchoolSettings, ClassData } from '../types.ts';
 
 const PASSING_GRADE = 50;
 

@@ -1,5 +1,6 @@
+
 import { GoogleGenAI, Type } from "@google/genai";
-import type { User, ClassData, StudyPlan, ScheduleData, SchedulePeriod, XOQuestion, Teacher, SchoolLevel } from "../types";
+import type { User, ClassData, StudyPlan, ScheduleData, SchedulePeriod, XOQuestion, Teacher, SchoolLevel } from "../types.ts";
 import { v4 as uuidv4 } from 'uuid';
 
 const getSimpleClassName = (stage: string, section: string): string => {

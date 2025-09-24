@@ -15,7 +15,8 @@ interface SquareProps {
   isDraw: boolean;
 }
 
-const Square = ({ value, onClick, index, winner, isDraw }: SquareProps) => (
+// FIX: Changed component to React.FC to correctly handle the 'key' prop when used in a list.
+const Square: React.FC<SquareProps> = ({ value, onClick, index, winner, isDraw }) => (
   <button 
     className="w-24 h-24 sm:w-32 sm:h-32 bg-gray-800 rounded-lg flex items-center justify-center text-6xl font-bold transition-transform transform hover:scale-105 relative group disabled:cursor-not-allowed"
     onClick={onClick}
@@ -466,7 +467,6 @@ export default function XoGame({ currentUser, gameId, onExit, forceSubject }: Xo
                 </div>
                 <p className="text-2xl font-semibold mb-4">{status}</p>
                 <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6">
-                    {/* FIX: Added explicit types to map callback to fix type inference issues. */}
                     {board.map((square: PlayerSymbol | null, i: number) => (<Square key={i} value={square} onClick={() => handleSquareClick(i)} index={i} winner={winner} isDraw={isDraw} />))}
                 </div>
                 {(winner || isDraw) && activeGameState.status !== 'finished' && <button onClick={resetGame} className="flex items-center gap-2 px-6 py-3 bg-indigo-600 rounded-lg hover:bg-indigo-700"><RefreshCw/>لعبة جديدة</button>}

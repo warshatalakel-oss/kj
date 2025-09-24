@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
-import type { User, Student, ClassData } from '../types';
+import type { User, Student, ClassData } from '../types.ts';
 import { v4 as uuidv4 } from 'uuid';
-import { db, auth } from '../lib/firebase';
+import { db, auth } from '../lib/firebase.ts';
 
 const PRINCIPAL_LOGIN_CODE = 'Th147aseen';
 const PRINCIPAL_USER: User = {

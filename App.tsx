@@ -1,11 +1,11 @@
 
 import React from 'react';
-import useAuth from './hooks/useAuth';
-import Login from './components/auth/Login';
-import MainApp from './components/MainApp';
-import StudentApp from './components/student/StudentApp';
-import CounselorApp from './components/counselor/CounselorApp';
-import StudentSubmissionForm from './components/student/StudentSubmissionForm';
+import useAuth from './hooks/useAuth.ts';
+import Login from './components/auth/Login.tsx';
+import MainApp from './components/MainApp.tsx';
+import StudentApp from './components/student/StudentApp.tsx';
+import CounselorApp from './components/counselor/CounselorApp.tsx';
+import StudentSubmissionForm from './components/student/StudentSubmissionForm.tsx';
 import { LogIn, Loader2, RefreshCw, AlertTriangle } from 'lucide-react';
 
 export default function App(): React.ReactNode {

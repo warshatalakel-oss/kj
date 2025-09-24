@@ -140,17 +140,16 @@ export default function GeneratedScheduleView({ scheduleData, onUpdateSchedule, 
     const [exportProgress, setExportProgress] = useState(0);
 
     const stages = useMemo(() => {
-        const grouped: Record<string, ClassData[]> = {};
-        classes
-            // FIX: Added a type guard to ensure 'c' is a valid ClassData object before processing.
-            .filter((c): c is ClassData => !!(c && c.id && c.stage))
-            .forEach(c => {
-            if (!grouped[c.stage]) {
-                grouped[c.stage] = [];
+        // FIX: Using reduce for robust grouping and to aid TypeScript's type inference.
+        return classes.reduce<Record<string, ClassData[]>>((acc, c) => {
+            if (c && c.stage) {
+                if (!acc[c.stage]) {
+                    acc[c.stage] = [];
+                }
+                acc[c.stage].push(c);
             }
-            grouped[c.stage].push(c);
-        });
-        return grouped;
+            return acc;
+        }, {});
     }, [classes]);
 
     const handleDragEnd = (event: DragEndEvent) => {

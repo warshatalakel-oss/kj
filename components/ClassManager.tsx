@@ -1,10 +1,10 @@
 
 import React, { useState, useRef } from 'react';
-import type { ClassData, Student, User, TeacherAssignment, Subject } from '../types';
-import { GRADE_LEVELS, DEFAULT_SUBJECTS } from '../constants';
+import type { ClassData, Student, User, TeacherAssignment, Subject } from '../types.ts';
+import { GRADE_LEVELS, DEFAULT_SUBJECTS } from '../constants.ts';
 import { Plus, Upload, Trash2, Edit, Save, X, UserPlus, ListVideo } from 'lucide-react';
 import { v4 as uuidv4 } from 'uuid';
-import { db } from '../lib/firebase';
+import { db } from '../lib/firebase.ts';
 
 
 declare const XLSX: any;
