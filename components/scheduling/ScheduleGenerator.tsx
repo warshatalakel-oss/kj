@@ -162,8 +162,9 @@ export default function ScheduleGenerator({ currentUser, users, classes, setting
         
         const sortedStages = Object.keys(gradesByStage).sort((a,b) => a.localeCompare(b, 'ar-IQ'));
         
-        const allGradeTotals = Object.values(studyPlans).flatMap(plan => 
-            Object.values(plan.grades).map(grade => grade.total)
+        // FIX: Added explicit type annotations for 'plan' and 'grade' to resolve 'unknown' type errors.
+        const allGradeTotals = Object.values(studyPlans).flatMap((plan: StudyPlan) => 
+            Object.values(plan.grades).map((grade: { total: number }) => grade.total)
         );
         const maxWeeklyLessons = allGradeTotals.length > 0 ? Math.max(...allGradeTotals) : 35; // Default to 35 (7 per day) if no plan
         const schoolBasePeriods = Math.floor(maxWeeklyLessons / 5);

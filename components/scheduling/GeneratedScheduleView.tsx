@@ -142,7 +142,8 @@ export default function GeneratedScheduleView({ scheduleData, onUpdateSchedule, 
     const stages = useMemo(() => {
         const grouped: Record<string, ClassData[]> = {};
         classes
-            .filter(c => c && c.id) // Filter out null/undefined/empty objects
+            // FIX: Added a type guard to ensure 'c' is a valid ClassData object before processing.
+            .filter((c): c is ClassData => !!(c && c.id && c.stage))
             .forEach(c => {
             if (!grouped[c.stage]) {
                 grouped[c.stage] = [];

@@ -68,7 +68,8 @@ export default function MyHomework({ currentUser, activeHomeworks, submissions, 
   const sortedHomeworks = useMemo(() => {
     // Defensive check to ensure activeHomeworks is always an array before processing.
     const homeworks = Array.isArray(activeHomeworks) ? activeHomeworks : [];
-    return [...homeworks].sort((a,b) => {
+    // FIX: Added explicit types to sort callback to prevent type inference issues.
+    return [...homeworks].sort((a: Homework, b: Homework) => {
         const subA = submissions[a.id];
         const subB = submissions[b.id];
         // If one is submitted and the other isn't, unsubmitted comes first

@@ -466,7 +466,8 @@ export default function XoGame({ currentUser, gameId, onExit, forceSubject }: Xo
                 </div>
                 <p className="text-2xl font-semibold mb-4">{status}</p>
                 <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6">
-                    {board.map((square, i) => (<Square key={i} value={square} onClick={() => handleSquareClick(i)} index={i} winner={winner} isDraw={isDraw} />))}
+                    {/* FIX: Added explicit types to map callback to fix type inference issues. */}
+                    {board.map((square: PlayerSymbol | null, i: number) => (<Square key={i} value={square} onClick={() => handleSquareClick(i)} index={i} winner={winner} isDraw={isDraw} />))}
                 </div>
                 {(winner || isDraw) && activeGameState.status !== 'finished' && <button onClick={resetGame} className="flex items-center gap-2 px-6 py-3 bg-indigo-600 rounded-lg hover:bg-indigo-700"><RefreshCw/>لعبة جديدة</button>}
                 <button onClick={handleExitGame} className="mt-4 text-sm text-gray-400 hover:underline">الخروج من اللعبة</button>
