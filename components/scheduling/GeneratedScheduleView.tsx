@@ -3,7 +3,7 @@ import type { User, ClassData, ScheduleData, Subject, ScheduleAssignment, School
 import { Download, PlusCircle, Loader2 } from 'lucide-react';
 import { DndContext, useDraggable, useDroppable, DragEndEvent } from '@dnd-kit/core';
 import * as ReactDOM from 'react-dom/client';
-import ClassSchedulePDFPage from './ClassSchedulePDFPage';
+import ClassSchedulePDFPage from './ClassSchedulePDFPage.tsx';
 
 declare const jspdf: any;
 declare const html2canvas: any;
@@ -140,16 +140,15 @@ export default function GeneratedScheduleView({ scheduleData, onUpdateSchedule, 
     const [exportProgress, setExportProgress] = useState(0);
 
     const stages = useMemo(() => {
-        // FIX: Using reduce for robust grouping and to aid TypeScript's type inference.
-        return classes.reduce<Record<string, ClassData[]>>((acc, c) => {
-            if (c && c.stage) {
+        return classes
+            .filter((c): c is ClassData => !!(c && c.stage))
+            .reduce<Record<string, ClassData[]>>((acc, c) => {
                 if (!acc[c.stage]) {
                     acc[c.stage] = [];
                 }
                 acc[c.stage].push(c);
-            }
-            return acc;
-        }, {});
+                return acc;
+            }, {});
     }, [classes]);
 
     const handleDragEnd = (event: DragEndEvent) => {
@@ -253,7 +252,8 @@ export default function GeneratedScheduleView({ scheduleData, onUpdateSchedule, 
     };
     
     const handleExportPdf = async () => {
-        const allVisibleClasses = Object.values(stages).flat();
+        // FIX: Explicitly type `allVisibleClasses` as `ClassData[]` to fix type inference issues with `flat()`. This resolves errors where `classInfo` was being incorrectly typed as `unknown` or `{}`, ensuring it matches the expected `ClassData` type for its properties and component props.
+        const allVisibleClasses: ClassData[] = Object.values(stages).flat();
         if (allVisibleClasses.length === 0) {
             alert("لا توجد شعب متاحة للتصدير.");
             return;
@@ -292,7 +292,7 @@ export default function GeneratedScheduleView({ scheduleData, onUpdateSchedule, 
             
             for (let i = 0; i < allVisibleClasses.length; i++) {
                 const classInfo = allVisibleClasses[i];
-                if (!classInfo?.id) continue;
+                if (!classInfo.id) continue;
 
                 await renderComponent(
                     <ClassSchedulePDFPage

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import type { User, XOQuestion, XOGameState, PlayerSymbol, ChatMessage, XOGamePlayer, XOGameSettings } from '../../types';
-import { db, firebase } from '../../lib/firebase';
+import { db, firebase } from '../../lib/firebase.ts';
 import { Loader2, RefreshCw, Send, Check, X as IconX, AlertTriangle } from 'lucide-react';
 import { v4 as uuidv4 } from 'uuid';
-import { normalizePathSegment } from '../../lib/utils';
+import { normalizePathSegment } from '../../lib/utils.ts';
 
 const PLAYER_SYMBOLS: PlayerSymbol[] = ['X', 'O', '⭐', '🌙', '❤️', '🔷'];
 
@@ -15,7 +15,6 @@ interface SquareProps {
   isDraw: boolean;
 }
 
-// FIX: Changed component to React.FC to correctly handle the 'key' prop when used in a list.
 const Square: React.FC<SquareProps> = ({ value, onClick, index, winner, isDraw }) => (
   <button 
     className="w-24 h-24 sm:w-32 sm:h-32 bg-gray-800 rounded-lg flex items-center justify-center text-6xl font-bold transition-transform transform hover:scale-105 relative group disabled:cursor-not-allowed"

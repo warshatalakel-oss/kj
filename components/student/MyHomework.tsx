@@ -10,7 +10,6 @@ interface MyHomeworkProps {
     onViewProgress: () => void;
 }
 
-// FIX: Changed component to React.FC with a defined props interface to correctly handle the 'key' prop in lists.
 interface HomeworkCardProps {
     homework: Homework;
     submission?: HomeworkSubmission;
@@ -73,9 +72,7 @@ const HomeworkCard: React.FC<HomeworkCardProps> = ({ homework, submission, onVie
 export default function MyHomework({ currentUser, activeHomeworks, submissions, onViewHomework, onViewProgress }: MyHomeworkProps) {
   
   const sortedHomeworks = useMemo(() => {
-    // Defensive check to ensure activeHomeworks is always an array before processing.
     const homeworks = Array.isArray(activeHomeworks) ? activeHomeworks : [];
-    // FIX: Added explicit types to sort callback to prevent type inference issues.
     return [...homeworks].sort((a: Homework, b: Homework) => {
         const subA = submissions[a.id];
         const subB = submissions[b.id];
